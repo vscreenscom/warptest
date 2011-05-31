@@ -26,13 +26,40 @@ public class BootstrapActivity extends Activity {
 	protected void onResume() {
 		super.onResume();
 		
+		// put bootstrap code here,
+
+		// use getAssetInputStream() to get the bytes 
+		// from objects in the "assets" folder
+		// you can put other images there as needed
+		
+		// use log() to write a message to the screen, for debugging
+		// purposes. you can also use android.os.Log to write to the
+		// android log in stead, if you like
+		
+		// for example,
+		
+		InputStream is = null;
 		String assetName = "moorwen_textured.jpg";
 		try {
-			InputStream is = getAssetInputStream(assetName);
+			is = getAssetInputStream(assetName);
 			log("got input stream for asset: " + assetName);
 		} catch (IOException e) {
 			log("failed to get input stream for asset: " + assetName);
+		} finally {
+			if (is != null) {
+				try {
+					is.close();
+				} catch (IOException e) {
+				}
+			}
 		}
+	}
+
+	@Override
+	protected void onPause() {
+		super.onPause();
+		
+		// put cleanup / shutdown code here
 	}
 
 	private InputStream getAssetInputStream(String name) throws IOException {
